@@ -18,7 +18,8 @@ func handleConn(conn net.Conn) error {
 	}
 
 	buffer := bytes.NewBuffer(buf)
-	if strings.Contains(buffer.String(), "ping") {
+	cmdCount := strings.Count(buffer.String(), "ping")
+	for i := 0; i <= cmdCount; i++ {
 		var writeBuffer bytes.Buffer
 		writeBuffer.WriteString(symbols.Plus.String())
 		writeBuffer.WriteString("PONG")
@@ -29,6 +30,6 @@ func handleConn(conn net.Conn) error {
 			return err
 		}
 	}
-	
+
 	return nil
 }
